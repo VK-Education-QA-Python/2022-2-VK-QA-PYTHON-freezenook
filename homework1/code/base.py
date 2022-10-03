@@ -1,11 +1,10 @@
 import pytest
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException, TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
-import time
 
 from ui import basic_locators
-import data
+
 
 class BaseCase:
     driver = None
@@ -14,12 +13,12 @@ class BaseCase:
     def setup(self, driver):
         self.driver = driver
 
-    def wait(self):
+    def wait(self, timeout=10):
         ignored_exceptions = (StaleElementReferenceException, ElementClickInterceptedException, TimeoutException)
-        return WebDriverWait(self.driver, timeout=10, ignored_exceptions=ignored_exceptions, poll_frequency=3)
+        return WebDriverWait(self.driver, timeout=timeout, ignored_exceptions=ignored_exceptions, poll_frequency=3)
 
-    def find(self, element_locator):
-        return self.wait().until(expected_conditions.presence_of_element_located(element_locator))
+    def find(self, element_locator, timeout=10):
+        return self.wait(timeout).until(EC.presence_of_element_located(element_locator))
 
     def check_exist(self, element_locator):
         try:
@@ -46,11 +45,18 @@ class BaseCase:
         profile_button = self.find(basic_locators.PROFILE_BUTTON)
         profile_button.click()
         logout_button = self.find(basic_locators.LOGOUT_BUTTON)
-        time.sleep(5)
-        logout_button.click()
+        try:
+            logout_button.click()
+        except:
+            logout_button.click()
 
-    def login_incorrect1(self):
-        self.login("testIncorrect", "12345")
-
-        auth_notify = self.find(basic_locators.AUTH_NOTIFY_WRAPPER)
-        assert auth_notify.get_attribute('height') == 'auto'
+    def fill_contact_info(self, fio=None, inn=None, phone=None):
+        fio_field = self.find(basic_locators.FIO_FIELD)
+        fio_field.clear()
+        fio_field.send_keys(fio)
+        inn_field = self.find(basic_locators.INN_FIELD)
+        inn_field.clear()
+        inn_field.send_keys(inn)
+        phone_field = self.find(basic_locators.PHONE_FIELD)
+        phone_field.clear()
+        phone_field.send_keys(phone)
