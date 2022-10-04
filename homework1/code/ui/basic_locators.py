@@ -5,7 +5,7 @@ LOGIN_BUTTON = (By.XPATH, './/*[contains(@class, "responseHead-module-button")]'
 EMAIL_FIELD = (By.NAME, 'email')
 PASSWORD_FIELD = (By.NAME, 'password')
 AUTH_BUTTON = (By.XPATH, './/*[contains(@class, "authForm-module-button")]')
-AUTH_NOTIFY_WRAPPER = (By.XPATH, './/*[contains(@class, "notify-module-wrapper")]') #уведомление сбоя авторизации
+AUTH_NOTIFY_WRAPPER = (By.XPATH, './/*[contains(@class, "notify-module-wrapper")]')
 
 #Локаторы для логаута
 PROFILE_BUTTON = (By.XPATH, './/*[contains(@class, "right-module-rightWrap")]')
@@ -22,5 +22,4 @@ FIO_FIELD = (By.XPATH, '//*[@data-name="fio"]//child::input')
 INN_FIELD = (By.XPATH, '//*[@data-name="ordInn"]//child::input')
 PHONE_FIELD = (By.XPATH, '//*[@data-name="phone"]//child::input')
 SUBMIT_INFO_BUTTON = (By.CLASS_NAME, 'button__text')
-#SUBMIT_INFO_BUTTON = (By.CLASS_NAME, 'button button_submit')
 SUBMIT_INFO_WRAPPER = (By.XPATH, './/*[@data-class-name="SuccessView"]')
