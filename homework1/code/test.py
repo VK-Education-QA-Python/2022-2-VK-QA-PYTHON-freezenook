@@ -6,6 +6,8 @@ import data
 
 
 class Test(BaseCase):
+    loginLocators = basic_locators.LoginLocators
+    contactInfoLocators = basic_locators.ContactInfoLocators
 
     @pytest.mark.UI
     def test_login(self):
@@ -16,31 +18,31 @@ class Test(BaseCase):
     def test_logout(self):
         self.login(data.login, data.password)
         self.logout()
-        assert self.check_exist(basic_locators.LOGIN_BUTTON)
+        assert self.check_exist(self.loginLocators.LOGIN_BUTTON)
 
     @pytest.mark.UI
-    def test_incorrect_log1(self):
+    def test_login_no_email(self):
         self.login("testIncorrect", "12345")
-        assert self.wait().until(EC.visibility_of_element_located(basic_locators.AUTH_NOTIFY_WRAPPER))
+        assert self.wait().until(EC.visibility_of_element_located(self.loginLocators.AUTH_NOTIFY_WRAPPER))
 
     @pytest.mark.UI
-    def test_incorrect_log2(self):
+    def test_login_incorrect_password(self):
         self.login(data.login, "12345")
         assert 'https://account.my.com/login/' in self.driver.current_url
 
     @pytest.mark.UI
     def test_fill_contact_info(self):
         self.login(data.login, data.password)
-        self.find(basic_locators.PROFILE_SECTION).click()
+        self.find(self.contactInfoLocators.PROFILE_SECTION).click()
         self.fill_contact_info("Логутов Владимир Васильевич", "774647774647", "+79998070707")
-        self.find(basic_locators.SUBMIT_INFO_BUTTON).click()
-        assert self.wait().until(EC.visibility_of_element_located(basic_locators.SUBMIT_INFO_WRAPPER))
+        self.find(self.contactInfoLocators.SUBMIT_INFO_BUTTON).click()
+        assert self.wait().until(EC.visibility_of_element_located(self.contactInfoLocators.SUBMIT_INFO_WRAPPER))
 
     @pytest.mark.UI
     @pytest.mark.parametrize("section_button,section_locator",
                              [
-                                 (basic_locators.PROFILE_SECTION, basic_locators.PROFILE_SECTION_LOCATOR),
-                                 (basic_locators.TOOLS_SECTION, basic_locators.TOOLS_SECTION_LOCATOR)
+                                 (contactInfoLocators.PROFILE_SECTION, contactInfoLocators.PROFILE_SECTION_LOCATOR),
+                                 (contactInfoLocators.TOOLS_SECTION, contactInfoLocators.TOOLS_SECTION_LOCATOR)
                              ]
                              )
     def test_go_to_section(self, section_button, section_locator):
