@@ -35,12 +35,10 @@ class CampaignPageLocators(BasePageLocators):
     LOAD_CONTENT_PAGE_LOCATOR = (By.XPATH, '//div[contains(@class, "js-target-content")]')
     TRAFFIC_LOCATOR = (By.XPATH, '//div[contains(@class, "_traffic")]')
     FIELD_FOR_URL_LOCATOR = (By.XPATH, '//input[contains(@class, "mainUrl-module-searchInput")]')
+    # CAMPAIGN_NAME_TITLE_LOCATOR = (By.XPATH, '//div[@class="base-settings__campaign-name-wrap '
+    #                                                 'js-base-setting-campaign-name-wrap"]')
 
-    #CAMPAIGN_NAME_TITLE_LOCATOR = (By.XPATH, '//div[@class="base-settings__campaign-name-wrap"]')
-
-    CAMPAIGN_NAME_TITLE_LOCATOR = (By.XPATH, '//div[@class="base-settings__campaign-name-wrap '
-                                                    'js-base-setting-campaign-name-wrap"]')
-
+    CAMPAIGN_TITLE = (By.XPATH, '//div[@class="base-settings__campaign-name-wrap js-base-setting-campaign-name-wrap"]')
     CAMPAIGN_NAME_FIELD_LOCATOR = (By.XPATH, '//div[contains(@class, "input_campaign-name")]//child::input')
     TEASER_BUTTON_LOCATOR = (By.XPATH, '//div[contains(@id, "patterns_teaser")]')
     SAVE_UPLOAD_PICTURE = (By.XPATH, '//input[contains(@class, "image-cropper__save js-save")]')
@@ -61,10 +59,11 @@ class SegmentsPageLocators(BasePageLocators):
     FIELD_FOR_NAME_OF_NEW_SEGMENT = (By.XPATH, '//div[contains(@class, "input_create-segment-form")]//child::input')
     SAVE_SEGMENT_BUTTON_LOCATOR = (By.XPATH, '//button[@data-service-readonly="true"]')
     TITLE_SEGMENT_LOCATOR = '//a[@title="{}"]'
+    SEGMENTS_HEADER_LOCATOR = (By.XPATH, '//div[contains(@class, "label-module-labelWrapper")]')
 
     #Локаторы для удаления сегмента
     SEGMENT_TITLE_LOCATOR = '//a[@title="{}"]'
-    DELETE_SEGMENT_LOCATOR = '//div[contains(@data-test, "remove-{}")]//child::span'
+    DELETE_SEGMENT_LOCATOR = '//div/a[contains(@title, "{}")]//following::div[9]'
     SUBMIT_DELETE_SEGMENT_LOCATOR = (By.XPATH, '//button[contains(@class, "button_confirm-remove")]')
 
     #Локаторы для добавления группы VK в источники
@@ -74,8 +73,6 @@ class SegmentsPageLocators(BasePageLocators):
     SUCCESS_INFO_WRAPPER = (By.XPATH, './/*[@data-class-name="SuccessView"]')
 
     #Локаторы для удаления группы из источника
-    DELETE_SOURCE_LOCATOR = (By.XPATH, '//td/span[contains(@title, "VK Образование")]//following::div[2]')
+    DELETE_SOURCE_LOCATOR = '//td/a[contains(@href, "{}")]//following::div[2]'
     SUBMIT_DELETE_SOURCE_LOCATOR = (By.XPATH, '//button[contains(@class, "button_confirm-remove")]')
-
-
-
+    TITLE_SOURCE_LOCATOR = '//a[@href="{}"]'
