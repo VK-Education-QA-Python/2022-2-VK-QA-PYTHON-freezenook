@@ -1,17 +1,21 @@
 import time
-from selenium.webdriver.support import expected_conditions as EC
 import os
+import allure
+from selenium.webdriver.support import expected_conditions as EC
 from ui.locators import basic_locators
 from ui.pages.base_page import BasePage
+
 
 def get_file():
     file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     return os.path.join(file_path, "files", "image.png")
 
+
 class CampaignPage(BasePage):
     locators = basic_locators.CampaignPageLocators
     url = 'https://target-sandbox.my.com/dashboard'
 
+    @allure.step('Create ad campaign')
     def create_ad_campaign(self, ad_url, campaign_name=time.time(), campaign_title='test', campaign_text='test'):
         self.click(self.locators.CREATE_CAMPAIGN_BUTTON_LOCATOR, timeout=30)
         self.click(self.locators.TRAFFIC_BUTTON_LOCATOR, timeout=30)
@@ -20,7 +24,7 @@ class CampaignPage(BasePage):
         field_for_url.clear()
         field_for_url.send_keys(ad_url)
 
-        self.find(self.locators.CAMPAIGN_NAME_TITLE_LOCATOR)
+        self.find(self.locators.CAMPAIGN_TITLE)
 
         field_for_campaign_name = self.find(self.locators.CAMPAIGN_NAME_FIELD_LOCATOR)
         field_for_campaign_name.clear()
@@ -40,7 +44,6 @@ class CampaignPage(BasePage):
         field_for_text = self.find(self.locators.FIELD_FOR_AD_TEXT_LOCATOR)
         field_for_text.clear()
         field_for_text.send_keys(campaign_text)
-
         self.click(self.locators.SAVE_CAMPAIGN_BUTTON_LOCATOR, timeout=30)
-        assert self.wait().until(EC.visibility_of_element_located(self.locators.SUCCESS_NOTIFY_LOCATOR))
 
+        assert self.wait(timeout=30).until(EC.visibility_of_element_located(self.locators.SUCCESS_NOTIFY_LOCATOR))
