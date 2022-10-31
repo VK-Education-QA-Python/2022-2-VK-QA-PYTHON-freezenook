@@ -1,5 +1,4 @@
 import time
-
 import pytest
 from base import BaseApi
 
@@ -9,8 +8,9 @@ class TestApi(BaseApi):
     @pytest.mark.API
     def test_login(self):
         self.api_client.post_login()
-        answer = self.api_client._request('GET', location='https://target.my.com/dashboard', jsonify=False)
-        assert answer.status_code == 200
+        #Ассерт авторизации проводится непосредственно в клиенте. Здесь он не проводится.
+        #Логика: если не получается взять токен, значит, авторизация провалена
+        #Так как по по моим наблюдениям csfr выдаётся только после успешной авторизации
 
     @pytest.mark.API
     def test_create_segment(self):
