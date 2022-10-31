@@ -1,10 +1,6 @@
 import requests
 
 
-class ResponseStatusCodeException(Exception):
-    pass
-
-
 class ApiClient:
 
     def __init__(self, user, password):
@@ -19,7 +15,7 @@ class ApiClient:
         response = self.session.request(method=method, url=url, headers=headers, data=data, params=params, json=json,
                                         files=files)
         if response.status_code != expected_status:
-            raise ResponseStatusCodeException(f'Got {response.status_code} {response.reason} for URL "{url}"')
+            raise Exception(f'Got {response.status_code} {response.reason} for URL "{url}"')
         if jsonify:
             return response.json()
         return response
@@ -47,7 +43,10 @@ class ApiClient:
             'failure': 'https://account.my.com/login/'
         }
         result = self._request('POST', url, headers=headers, data=data, expected_status=200, jsonify=False)
-        self.csrf_token = self.get_token()
+        try:
+            self.csrf_token = self.get_token()
+        except KeyError:
+            assert False #если не получилось взять токет, значит, авторизация точно завалена
         return result
 
     def post_create_segment(self, name, relations_json, pass_condition=1):
@@ -84,16 +83,16 @@ class ApiClient:
         }
 
         params = {
-            "limit": "500"
+            "limit": "500" #браузер отправляет именно 500, пусть будет так
         }
 
         response = self._request('GET', location, headers=headers, params=params, expected_status=200)
         return str(segment_id) in response.text
 
     def post_add_club_source(self, club_id):
-        club_source_id = self.get_vk_source(club_id)
+        club_source_id = self.get_vk_source(club_id) #проверяем, есть ли группа в списке источников
         if club_source_id is None:
-            print("Группы еще нет в списке, добавляем")
+            print('Группы еще нет в списке, добавляем')
             location = 'https://target-sandbox.my.com/api/v2/remarketing/vk_groups/bulk.json'
             headers = {
                 'Origin': 'https://target-sandbox.my.com',
@@ -109,6 +108,7 @@ class ApiClient:
             print(f'Группу добавили, id источника = {club_source_id}')
         else:
             print(f'Группа в списке, ничего не добавляем id = {club_source_id}')
+
         return club_source_id
 
     def delete_club_source(self, club_source_id):
@@ -133,6 +133,7 @@ class ApiClient:
         response = self._request('GET', location, headers=headers, params=params, expected_status=200, jsonify=False)
 
         if str(club_id) in response.text:
+            #Если группа уже есть, превращаем результат запроса в JSON и ищем в нём id источника (4-зн. на таргете)
             response_json = response.json()
             for i in range(len(response_json['items'])):
                 if response_json['items'][i]['object_id'] == club_id:
