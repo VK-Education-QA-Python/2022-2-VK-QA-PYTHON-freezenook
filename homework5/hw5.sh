@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo '_____НАЧИНАЕМ______'
 echo "1. Общее количество запросов"
 cat access.log | wc -l | awk '{print $1}'
