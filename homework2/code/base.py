@@ -7,6 +7,7 @@ from ui.pages.base_page import BasePage
 from ui.pages.login_page import LoginPage
 from ui.pages.campaign_page import CampaignPage
 from ui.pages.segments_page import SegmentsPage
+from ui.pages.sources_page import SourcesPage
 
 
 class BaseCase:
@@ -37,3 +38,4 @@ class BaseCase:
         self.login_page:LoginPage = (request.getfixturevalue('login_page'))
         self.campaign_page:CampaignPage = (request.getfixturevalue('campaign_page'))
         self.segments_page:SegmentsPage = (request.getfixturevalue('segments_page'))
+        self.sources_page: SourcesPage = (request.getfixturevalue('sources_page'))

@@ -12,6 +12,7 @@ from ui.pages.base_page import BasePage
 from ui.pages.login_page import LoginPage
 from ui.pages.campaign_page import CampaignPage
 from ui.pages.segments_page import SegmentsPage
+from ui.pages.sources_page import SourcesPage
 
 
 def pytest_configure(config):
@@ -77,3 +78,8 @@ def campaign_page(driver):
 @pytest.fixture()
 def segments_page(driver):
     return SegmentsPage(driver=driver)
+
+
+@pytest.fixture()
+def sources_page(driver):
+    return SourcesPage(driver=driver)

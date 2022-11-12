@@ -1,5 +1,4 @@
 import time
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException, TimeoutException, NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait

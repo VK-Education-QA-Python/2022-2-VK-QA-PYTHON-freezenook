@@ -20,30 +20,20 @@ class CampaignPage(BasePage):
         self.click(self.locators.CREATE_CAMPAIGN_BUTTON_LOCATOR, timeout=30)
         self.click(self.locators.TRAFFIC_BUTTON_LOCATOR, timeout=30)
 
-        field_for_url = self.find(self.locators.FIELD_FOR_URL_LOCATOR)
-        field_for_url.clear()
-        field_for_url.send_keys(ad_url)
-
+        self.type_field(self.locators.FIELD_FOR_URL_LOCATOR, ad_url)
         self.find(self.locators.CAMPAIGN_TITLE)
-
-        field_for_campaign_name = self.find(self.locators.CAMPAIGN_NAME_FIELD_LOCATOR)
-        field_for_campaign_name.clear()
-        field_for_campaign_name.send_keys(campaign_name)
+        self.type_field(self.locators.CAMPAIGN_NAME_FIELD_LOCATOR, campaign_name)
 
         banner_button = self.find(self.locators.TEASER_BUTTON_LOCATOR)
         banner_button.click()
 
         button_upload_image = self.find(self.locators.UPLOAD_IMAGE_BUTTON_LOCATOR)
         button_upload_image.send_keys(get_file())
-
         self.click(self.locators.SAVE_UPLOAD_PICTURE, timeout=6)
 
-        field_for_title = self.find(self.locators.FIELD_FOR_AD_TITLE_LOCATOR)
-        field_for_title.clear()
-        field_for_title.send_keys(campaign_title)
-        field_for_text = self.find(self.locators.FIELD_FOR_AD_TEXT_LOCATOR)
-        field_for_text.clear()
-        field_for_text.send_keys(campaign_text)
+        self.type_field(self.locators.FIELD_FOR_AD_TITLE_LOCATOR, campaign_title)
+        self.type_field(self.locators.FIELD_FOR_AD_TEXT_LOCATOR, campaign_text)
+
         self.click(self.locators.SAVE_CAMPAIGN_BUTTON_LOCATOR, timeout=30)
 
         assert self.wait(timeout=30).until(EC.visibility_of_element_located(self.locators.SUCCESS_NOTIFY_LOCATOR))
