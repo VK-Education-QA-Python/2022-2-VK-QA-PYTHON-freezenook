@@ -29,3 +29,4 @@ class ContactInfoLocators(BaseLocators):
     PHONE_FIELD = (By.XPATH, '//*[@data-name="phone"]//child::input')
     SUBMIT_INFO_BUTTON = (By.CLASS_NAME, 'button__text')
     SUBMIT_INFO_WRAPPER = (By.XPATH, './/*[@data-class-name="SuccessView"]')
+    
