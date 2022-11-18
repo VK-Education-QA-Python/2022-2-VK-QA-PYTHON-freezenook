@@ -1,0 +1,20 @@
+Общее количество запросов по типу: GET=122095, POST=102503, HEAD=528, PUT=6
+
+Топ 10 самых частых запросов:
+103932 запросов на URL /administrator/index.php 
+26336 запросов на URL /apache-log/access.log 
+6940 запросов на URL / 
+4980 запросов на URL /templates/_system/css/general.css 
+3199 запросов на URL /robots.txt 
+2356 запросов на URL http://almhuette-raith.at/administrator/index.php 
+2201 запросов на URL /favicon.ico 
+1644 запросов на URL /wp-login.php 
+1563 запросов на URL /administrator/ 
+1287 запросов на URL /templates/jp_hotel/css/template.css 
+
+Топ 5 пользователей по количеству запросов с ошибкой 5ХХ:
+225 запросов от 189.217.45.73 
+4 запросов от 82.193.127.15 
+3 запросов от 91.210.145.36 
+2 запросов от 194.87.237.6 
+2 запросов от 198.38.94.207 
