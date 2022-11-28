@@ -45,8 +45,8 @@ class ApiClient:
         result = self._request('POST', url, headers=headers, data=data, expected_status=200, jsonify=False)
         try:
             self.csrf_token = self.get_token()
-        except KeyError:
-            assert False #если не получилось взять токет, значит, авторизация точно завалена
+        except KeyError as exc:
+            raise AssertionError(...) from exc
         return result
 
     def post_create_segment(self, name, relations_json, pass_condition=1):
@@ -83,7 +83,7 @@ class ApiClient:
         }
 
         params = {
-            "limit": "500" #браузер отправляет именно 500, пусть будет так
+            "limit": "50"
         }
 
         response = self._request('GET', location, headers=headers, params=params, expected_status=200)
