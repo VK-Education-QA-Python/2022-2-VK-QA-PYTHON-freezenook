@@ -8,4 +8,5 @@
 
 ## Запуск
 * Тесты работают в многопоточном режиме (xdist)
-* Команда для запуска: **pytest main_sql.py -n=4**
+* Команда для запуска: **pytest -n=4**
+* Команда для развёртывания БД **docker run --name TEST_SQL -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pass -d mysql:8.0**"
