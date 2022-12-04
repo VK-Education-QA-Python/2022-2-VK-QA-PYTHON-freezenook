@@ -5,7 +5,6 @@ from fnmatch import fnmatch
 from mysql.models import *
 
 LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../data', 'access.log')
-TOP4XX = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../data', 'top5_4xx.log')
 
 
 class MySQLBuilder:
